@@ -1,0 +1,13 @@
+{
+  "name": "board",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Local infinite canvas for planning documentaries (step 2: server, saving, boards, previews)",
+  "scripts": {
+    "install:all": "npm --prefix web install && npm --prefix server install",
+    "build": "npm --prefix web run build && npm --prefix server run build",
+    "start": "node server/dist/index.js",
+    "dev": "node scripts/dev.mjs",
+    "test": "npm --prefix web test && npm --prefix server test"
+  }
+}

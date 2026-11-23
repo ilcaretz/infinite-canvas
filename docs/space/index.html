@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Infinite Canvas</title><style>
+*{box-sizing:border-box;margin:0}
+body{min-width:1600px;min-height:900px;background:#0f1013;font-family:"Segoe UI",Inter,system-ui,sans-serif;color:#e8e8ec;overflow:hidden}
+.wrap{display:grid;grid-template-columns:930px 1fr;gap:44px;padding:56px 60px}
+h1{font-size:54px;font-weight:700;letter-spacing:-1px}
+h1 span{background:linear-gradient(90deg,#ff8a4c,#ff4f8b 45%,#7b6cff);-webkit-background-clip:text;color:transparent}
+.tag{color:#9a9aa6;font-size:21px;margin:10px 0 28px}
+.board{position:relative;height:610px;border-radius:18px;background-color:#16171b;
+ background-image:radial-gradient(#ffffff12 1.2px,transparent 1.2px);background-size:26px 26px;border:1px solid #26272e;overflow:hidden}
+.card{position:absolute;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px #0008;border:1px solid #ffffff14}
+.img1{left:40px;top:40px;width:300px;height:190px;background:radial-gradient(circle at 30% 35%,#ffd36e 0 9%,transparent 10%),linear-gradient(180deg,#ff7a45 0%,#d6336c 55%,#3b1f5e 100%)}
+.img1:after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(170deg,transparent 40%,#1b1030 41%)}
+.vid{left:370px;top:70px;width:340px;height:192px;background:linear-gradient(135deg,#0d3b66,#1b998b 60%,#e9f5db)}
+.play{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:#000a;display:grid;place-items:center}
+.play:before{content:"";border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.dur{position:absolute;left:10px;bottom:10px;background:#000b;padding:2px 8px;border-radius:5px;font-size:13px}
+.badge{position:absolute;left:10px;top:10px;background:#000b;padding:3px 7px;border-radius:5px;font-size:12px;font-weight:700;color:#9fd}
+.doc{left:60px;top:290px;width:270px;height:240px;background:#1d1e24;padding:0}
+.doc .hd{background:#26272f;padding:9px 12px;font-size:13px;color:#bbb}
+.doc .hd b{background:#3a3b46;padding:1px 6px;border-radius:4px;margin-right:8px;font-size:11px;color:#fff}
+.doc p{padding:8px 14px;font-size:13px;color:#aab;line-height:1.55;font-family:Consolas,monospace}
+.group{left:380px;top:330px;width:500px;height:190px;border:2px solid #7b6cff;border-radius:12px;background:#7b6cff14;box-shadow:none}
+.group .t{background:#7b6cff;color:#fff;font-size:15px;font-weight:600;padding:7px 14px}
+.thumb{position:absolute;width:140px;height:100px;border-radius:8px;border:1px solid #ffffff18}
+.t1{left:22px;top:60px;background:linear-gradient(160deg,#2b2d42,#8d99ae)}
+.t2{left:178px;top:60px;background:linear-gradient(160deg,#606c38,#dda15e)}
+.t3{left:334px;top:60px;background:linear-gradient(160deg,#03045e,#00b4d8)}
+.text{position:absolute;left:770px;top:80px;line-height:1.15;white-space:nowrap;font-size:26px;font-weight:700;color:#ffd36e;transform:rotate(-4deg)}
+.note{position:absolute;left:372px;top:272px;font-size:14px;color:#8f8fa0}
+.cursor{position:absolute;left:640px;top:250px;width:0;height:0;border-left:11px solid #fff;border-bottom:18px solid transparent;transform:rotate(-20deg);filter:drop-shadow(0 2px 3px #000)}
+.zoom{position:absolute;right:16px;bottom:14px;background:#22232a;border:1px solid #333;padding:4px 10px;border-radius:7px;font-size:13px;color:#aaa}
+.side h2{font-size:26px;margin:4px 0 18px;color:#fff}
+.mode{border-radius:16px;padding:22px 24px;margin-bottom:22px;border:1px solid #2a2b33;background:#16171b}
+.mode h3{font-size:24px;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:22px}
+.pc .ico{background:#ff8a4c22;color:#ff8a4c}.cf .ico{background:#7b6cff22;color:#a99cff}
+ul{list-style:none;padding:0}li{font-size:18px;color:#c4c4cc;padding:5px 0 5px 26px;position:relative;line-height:1.35}
+li:before{content:"";position:absolute;left:4px;top:13px;width:8px;height:8px;border-radius:50%}
+.pc li:before{background:#ff8a4c}.cf li:before{background:#a99cff}
+.gh{display:inline-block;margin:6px 0 16px;padding:12px 20px;border-radius:10px;background:linear-gradient(90deg,#ff8a4c,#ff4f8b 45%,#7b6cff);color:#fff;font-weight:700;font-size:18px;text-decoration:none}
+code{background:#26272f;padding:1px 7px;border-radius:5px;font-size:16px;color:#fff}
+.foot{color:#7d7d88;font-size:16px;margin-top:6px}
+</style></head><body><div class="wrap">
+<div>
+ <h1><span>Infinite Canvas</span> board</h1>
+ <div class="tag">A Miro-style moodboard for film &amp; AI-video work: drop anything, zoom forever, keep every original.</div>
+ <div class="board">
+  <div class="card img1"></div>
+  <div class="card vid"><span class="badge">C</span><div class="play"></div><span class="dur">▶ 0:12</span></div>
+  <div class="text">shot 04<br>warmer!</div>
+  <div class="note">ComfyUI workflows detected from the file</div>
+  <div class="card doc"><div class="hd"><b>FDX</b>scene_12.fdx</div><p>INT. HANGAR - NIGHT<br><br>MAYA crosses to the<br>window. Rain on glass.<br><br>MAYA<br>&nbsp;&nbsp;We go at dawn.</p></div>
+  <div class="card group"><div class="t">Look development</div><div class="thumb t1"></div><div class="thumb t2"></div><div class="thumb t3"></div></div>
+  <div class="cursor"></div>
+  <div class="zoom">35%</div>
+ </div>
+</div>
+<div class="side">
+ <h2>Two ways to run it</h2>
+ <div class="mode pc"><h3><span class="ico">⌂</span>On your PC</h3><ul>
+  <li>Double-click <code>start.bat</code> → opens in the browser</li>
+  <li>Files stay in one local folder, nothing leaves the machine</li>
+  <li>ffmpeg previews for any video format, "Open in ComfyUI"</li></ul></div>
+ <div class="mode cf"><h3><span class="ico">☁</span>Online, free, 24/7</h3><ul>
+  <li>Cloudflare Workers + D1 + R2 (free tiers)</li>
+  <li>Own login per person, upload &amp; download anytime</li>
+  <li>Media goes browser ↔ storage directly; your PC can be off</li></ul></div>
+ <a class="gh" href="https://github.com/ilcaretz/infinite-canvas">Code &amp; setup on GitHub →</a><div class="foot">Images · video · audio · PDF · Markdown · Fountain · FDX · PSD · groups · text · trash &amp; restore</div>
+</div>
+</div></body></html>

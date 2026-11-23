@@ -1,0 +1,32 @@
+# /etc/systemd/system/board.service   (see docs/HOSTING.md, option B)
+#   sudo useradd --system --create-home --home-dir /opt/board --shell /usr/sbin/nologin board
+#   app code in /opt/board, secrets in /opt/board/.env (chmod 600, owner board)
+[Unit]
+Description=Board (infinite canvas)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=board
+Group=board
+WorkingDirectory=/opt/board
+# The app reads /opt/board/.env itself (STORAGE_DRIVER, S3_*, APP_PASSWORD, HOST, TRUST_PROXY ...); real environment variables win over it.
+Environment=NODE_ENV=production
+Environment=DATA_DIR=/var/lib/board
+ExecStart=/usr/bin/node /opt/board/server/dist/index.js
+Restart=on-failure
+RestartSec=3
+# generous: a large video can take a while to hash + transcode before the process is idle
+TimeoutStopSec=60
+StateDirectory=board
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/board
+CapabilityBoundingSet=
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

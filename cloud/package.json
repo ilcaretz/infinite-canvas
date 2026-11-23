@@ -1,0 +1,24 @@
+{
+  "name": "infinite-canvas-cloud",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Cloudflare Worker serving the Infinite Canvas /api/* contract (D1 + R2)",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute infinite-canvas --remote --file=schema.sql",
+    "hash": "node scripts/hash-password.mjs"
+  },
+  "dependencies": {
+    "aws4fetch": "1.0.20"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261123.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4",
+    "wrangler": "4.166.0",
+    "@types/node": "22.15.0"
+  }
+}
