@@ -4,6 +4,8 @@
 across one endless board. Every original is kept byte-for-byte. Text notes and coloured groups help you lay out shots,
 looks and references. ComfyUI workflows are detected inside your files.
 
+**How to make it live (free, 24/7, step by step):** [emberlamp.com/infinite-canvas.html](https://emberlamp.com/infinite-canvas.html)
+
 ![Infinite Canvas overview](docs/img/infinite-canvas-overview.png)
 
 ## Two ways to run it
@@ -17,7 +19,7 @@ looks and references. ComfyUI workflows are detected inside your files.
 | Extras | Show in folder, Open in ComfyUI | Copy workflow, works with your PC off |
 
 - **PC:** see *Requirements* and *Start* below.
-- **Online:** see [`cloud/README.md`](cloud/README.md). In short: create an R2 bucket, `npx wrangler login`, `npm run db:init`,
+- **Online:** step-by-step guide at [emberlamp.com/infinite-canvas.html](https://emberlamp.com/infinite-canvas.html), commands in [`cloud/README.md`](cloud/README.md). In short: create an R2 bucket, `npx wrangler login`, `npm run db:init`,
   set the secrets (users from `cloud/scripts/hash-password.mjs`, S3 keys, session secret), then `npm run deploy`. Media goes
   straight from the browser to R2 through signed links, so the Worker stays inside the free 10 ms CPU budget.
 
