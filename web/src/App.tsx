@@ -589,7 +589,12 @@ export default function App() {
   };
 
   const onDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = (e.target as HTMLElement).closest('[data-item-id]');
+    let el = (e.target as HTMLElement).closest('[data-item-id]');
+    if (!el) {
+      // pointer capture on the board root retargets dblclick to the root: find the text/image/video under the cursor
+      const under = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-item-id]');
+      if (under && !under.classList.contains('group-title')) el = under;
+    }
     let id = el?.getAttribute('data-item-id');
     if (!id) {
       // pointer capture on the board root can retarget the event: look under the cursor for a group title bar
